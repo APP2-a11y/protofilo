@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق الدردشة</title>
+    <title>دردشة ويب مباشرة</title>
     <style>
         :root {
-            --primary-color: #25D366;
-            --secondary-color: #128C7E;
+            --primary: #25D366;
+            --primary-dark: #128C7E;
             --light-bg: #e5ddd5;
             --message-sent: #DCF8C6;
             --message-received: #FFFFFF;
@@ -25,25 +25,31 @@
         body {
             background-color: var(--light-bg);
             color: #333;
+            height: 100vh;
         }
         
-        /* شاشة تسجيل الدخول */
-        .login-container {
+        /* شاشة الدخول */
+        .auth-screen {
             max-width: 500px;
-            margin: 50px auto;
+            margin: 0 auto;
             padding: 30px;
-            background-color: white;
+            background: white;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
         }
         
-        .login-container h1 {
-            color: var(--secondary-color);
+        .auth-screen h1 {
+            color: var(--primary-dark);
+            text-align: center;
             margin-bottom: 20px;
         }
         
-        .login-container input {
+        .auth-screen input {
             width: 100%;
             padding: 12px 15px;
             margin: 10px 0;
@@ -52,35 +58,35 @@
             font-size: 16px;
         }
         
-        .login-container button {
-            background-color: var(--primary-color);
+        .auth-screen button {
+            background-color: var(--primary);
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 12px 0;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
             margin-top: 10px;
+            width: 100%;
             transition: all 0.3s;
         }
         
-        .login-container button:hover {
-            background-color: var(--secondary-color);
+        .auth-screen button:hover {
+            background-color: var(--primary-dark);
         }
         
         /* شاشة الدردشة */
         .chat-container {
             display: none;
+            height: 100vh;
             max-width: 1000px;
             margin: 0 auto;
-            height: 100vh;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
             position: relative;
         }
         
         .chat-header {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-dark);
             color: white;
             padding: 15px 20px;
             display: flex;
@@ -93,10 +99,10 @@
             align-items: center;
         }
         
-        .chat-header .user-info .avatar {
+        .chat-header .avatar {
             width: 40px;
             height: 40px;
-            background-color: var(--primary-color);
+            background-color: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -162,7 +168,7 @@
         }
         
         .chat-input button {
-            background-color: var(--primary-color);
+            background-color: var(--primary);
             color: white;
             border: none;
             width: 40px;
@@ -176,27 +182,32 @@
         }
         
         .chat-input button:hover {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-dark);
         }
         
-        /* شاشة إدخال كود المستخدم */
-        .connect-container {
+        /* شاشة إنشاء/انضمام لغرفة */
+        .room-screen {
             display: none;
             max-width: 500px;
-            margin: 50px auto;
+            margin: 0 auto;
             padding: 30px;
-            background-color: white;
+            background: white;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
         }
         
-        .connect-container h2 {
-            color: var(--secondary-color);
+        .room-screen h2 {
+            color: var(--primary-dark);
+            text-align: center;
             margin-bottom: 20px;
         }
         
-        .connect-container input {
+        .room-screen input {
             width: 100%;
             padding: 12px 15px;
             margin: 10px 0;
@@ -205,23 +216,24 @@
             font-size: 16px;
         }
         
-        .connect-container button {
-            background-color: var(--primary-color);
+        .room-screen button {
+            background-color: var(--primary);
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 12px 0;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
             margin-top: 10px;
+            width: 100%;
             transition: all 0.3s;
         }
         
-        .connect-container button:hover {
-            background-color: var(--secondary-color);
+        .room-screen button:hover {
+            background-color: var(--primary-dark);
         }
         
-        .back-button {
+        .back-btn {
             background-color: #f0f0f0;
             color: #333;
             border: none;
@@ -229,17 +241,13 @@
             border-radius: 5px;
             font-size: 14px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px;
         }
         
         @media (max-width: 768px) {
-            .login-container, .connect-container {
-                margin: 20px;
+            .auth-screen, .room-screen {
                 padding: 20px;
-            }
-            
-            .chat-container {
-                max-width: 100%;
+                width: 95%;
             }
             
             .message {
@@ -251,20 +259,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- شاشة تسجيل الدخول -->
-    <div class="login-container" id="loginContainer">
-        <h1>تطبيق الدردشة</h1>
-        <input type="text" id="usernameInput" placeholder="أدخل اسمك">
-        <button onclick="login()">الدخول</button>
+    <!-- شاشة الدخول -->
+    <div class="auth-screen" id="authScreen">
+        <h1>دردشة ويب مباشرة</h1>
+        <input type="text" id="usernameInput" placeholder="اسم المستخدم">
+        <button onclick="login()">الدخول إلى الدردشة</button>
     </div>
     
-    <!-- شاشة إدخال كود المستخدم -->
-    <div class="connect-container" id="connectContainer">
-        <h2>الاتصال بمستخدم آخر</h2>
-        <p>كودك: <span id="myCode"></span></p>
-        <input type="text" id="otherUserCode" placeholder="أدخل كود المستخدم الآخر">
-        <button onclick="connectToUser()">اتصال</button>
-        <button class="back-button" onclick="backToChat()">العودة للدردشة</button>
+    <!-- شاشة إنشاء/انضمام لغرفة -->
+    <div class="room-screen" id="roomScreen">
+        <h2>إنشاء/انضمام إلى غرفة</h2>
+        <input type="text" id="roomIdInput" placeholder="معرف الغرفة">
+        <button onclick="joinRoom()">الدخول</button>
+        <button class="back-btn" onclick="backToAuth()">رجوع</button>
     </div>
     
     <!-- شاشة الدردشة -->
@@ -272,9 +279,9 @@
         <div class="chat-header">
             <div class="user-info">
                 <div class="avatar" id="userAvatar"></div>
-                <span id="chatWithUser"></span>
+                <span id="roomName">غرفة الدردشة</span>
             </div>
-            <button onclick="showConnectScreen()">اتصال جديد</button>
+            <div id="connectionStatus">متصل</div>
         </div>
         
         <div class="chat-messages" id="chatMessages"></div>
@@ -287,64 +294,98 @@
 
     <script>
         // بيانات التطبيق
-        let currentUser = '';
-        let myCode = '';
-        let connectedUser = '';
-        let messages = [];
+        let username = '';
+        let roomId = '';
+        let socket = null;
         
-        // إنشاء كود عشوائي للمستخدم
-        function generateCode() {
-            return Math.floor(100000 + Math.random() * 900000).toString();
-        }
-        
-        // تسجيل الدخول
+        // الدخول إلى التطبيق
         function login() {
-            const username = document.getElementById('usernameInput').value.trim();
+            username = document.getElementById('usernameInput').value.trim();
             
             if (username === '') {
                 alert('الرجاء إدخال اسم المستخدم');
                 return;
             }
             
-            currentUser = username;
-            myCode = generateCode();
-            
-            // عرض شاشة الاتصال
-            document.getElementById('loginContainer').style.display = 'none';
-            document.getElementById('connectContainer').style.display = 'block';
-            document.getElementById('myCode').textContent = myCode;
-            
-            // تخزين بيانات المستخدم في localStorage
-            localStorage.setItem('chatAppUsername', username);
-            localStorage.setItem('chatAppCode', myCode);
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('roomScreen').style.display = 'block';
         }
         
-        // الاتصال بمستخدم آخر
-        function connectToUser() {
-            const otherCode = document.getElementById('otherUserCode').value.trim();
+        // الرجوع إلى شاشة الدخول
+        function backToAuth() {
+            document.getElementById('roomScreen').style.display = 'none';
+            document.getElementById('authScreen').style.display = 'block';
+        }
+        
+        // الانضمام إلى غرفة دردشة
+        function joinRoom() {
+            roomId = document.getElementById('roomIdInput').value.trim();
             
-            if (otherCode === '') {
-                alert('الرجاء إدخال كود المستخدم');
+            if (roomId === '') {
+                alert('الرجاء إدخال معرف الغرفة');
                 return;
             }
             
-            if (otherCode === myCode) {
-                alert('لا يمكنك الاتصال بنفسك');
-                return;
-            }
+            // الاتصال بخادم WebSocket
+            connectToWebSocket();
+        }
+        
+        // الاتصال بخادم WebSocket
+        function connectToWebSocket() {
+            // نستخدم خدمة مجانية لـ WebSocket (لأغراض تجريبية فقط)
+            socket = new WebSocket('wss://free.blr2.piesocket.com/v3/1?api_key=VCnJTVPZQ6s4Lw7W4bw5U4tYVhoOMQ1F30nqZ4hJ&notify_self=1');
             
-            connectedUser = otherCode;
+            socket.onopen = function(e) {
+                console.log('تم الاتصال بخادم WebSocket');
+                document.getElementById('connectionStatus').textContent = 'متصل';
+                
+                // إظهار شاشة الدردشة
+                document.getElementById('roomScreen').style.display = 'none';
+                document.getElementById('chatContainer').style.display = 'block';
+                document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
+                document.getElementById('roomName').textContent = `غرفة: ${roomId}`;
+                
+                // إرسال رسالة انضمام إلى الغرفة
+                const joinMessage = {
+                    type: 'join',
+                    username: username,
+                    roomId: roomId
+                };
+                socket.send(JSON.stringify(joinMessage));
+            };
             
-            // عرض شاشة الدردشة
-            document.getElementById('connectContainer').style.display = 'none';
-            document.getElementById('chatContainer').style.display = 'block';
+            socket.onmessage = function(event) {
+                const message = JSON.parse(event.data);
+                
+                if (message.type === 'chat') {
+                    // عرض الرسالة
+                    displayMessage(
+                        message.text, 
+                        message.sender === username ? 'sent' : 'received', 
+                        message.sender,
+                        message.time
+                    );
+                } else if (message.type === 'notification') {
+                    // عرض إشعار
+                    displayNotification(message.text);
+                }
+            };
             
-            // تحديث معلومات الدردشة
-            document.getElementById('userAvatar').textContent = currentUser.charAt(0).toUpperCase();
-            document.getElementById('chatWithUser').textContent = `محادثة مع ${otherCode}`;
+            socket.onclose = function(event) {
+                if (event.wasClean) {
+                    console.log('تم إغلاق الاتصال');
+                } else {
+                    console.log('فقدان الاتصال');
+                    document.getElementById('connectionStatus').textContent = 'غير متصل - يحاول إعادة الاتصال...';
+                    // محاولة إعادة الاتصال بعد 5 ثواني
+                    setTimeout(connectToWebSocket, 5000);
+                }
+            };
             
-            // تحميل الرسائل السابقة (إن وجدت)
-            loadMessages();
+            socket.onerror = function(error) {
+                console.log('حدث خطأ: ' + error.message);
+                document.getElementById('connectionStatus').textContent = 'خطأ في الاتصال';
+            };
         }
         
         // إرسال رسالة
@@ -352,42 +393,38 @@
             const messageInput = document.getElementById('messageInput');
             const messageText = messageInput.value.trim();
             
-            if (messageText === '') return;
+            if (messageText === '' || !socket) return;
             
-            // إنشاء رسالة جديدة
-            const newMessage = {
-                sender: myCode,
-                receiver: connectedUser,
+            // إنشاء رسالة
+            const chatMessage = {
+                type: 'chat',
                 text: messageText,
+                sender: username,
+                roomId: roomId,
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             };
             
-            // إضافة الرسالة للقائمة
-            messages.push(newMessage);
+            // إرسال الرسالة عبر WebSocket
+            socket.send(JSON.stringify(chatMessage));
             
-            // حفظ الرسائل في localStorage
-            saveMessages();
-            
-            // عرض الرسالة
-            displayMessage(newMessage, 'sent');
+            // عرض الرسالة فوراً كرسالة مرسلة
+            displayMessage(messageText, 'sent', username, chatMessage.time);
             
             // مسح حقل الإدخال
             messageInput.value = '';
-            
-            // هنا في التطبيق الحقيقي، ستقوم بإرسال الرسالة للخادم
-            // simulateReceivedMessage();
         }
         
         // عرض رسالة
-        function displayMessage(message, type) {
+        function displayMessage(text, type, sender, time) {
             const chatMessages = document.getElementById('chatMessages');
             
             const messageElement = document.createElement('div');
             messageElement.classList.add('message', type);
             
             messageElement.innerHTML = `
-                <div class="text">${message.text}</div>
-                <div class="time">${message.time}</div>
+                ${type === 'received' ? `<div class="sender">${sender}</div>` : ''}
+                <div class="text">${text}</div>
+                <div class="time">${time}</div>
             `;
             
             chatMessages.appendChild(messageElement);
@@ -396,74 +433,21 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
         
-        // حفظ الرسائل في localStorage
-        function saveMessages() {
-            localStorage.setItem(`chatAppMessages_${myCode}_${connectedUser}`, JSON.stringify(messages));
-        }
-        
-        // تحميل الرسائل من localStorage
-        function loadMessages() {
-            const savedMessages = localStorage.getItem(`chatAppMessages_${myCode}_${connectedUser}`);
+        // عرض إشعار
+        function displayNotification(text) {
+            const chatMessages = document.getElementById('chatMessages');
             
-            if (savedMessages) {
-                messages = JSON.parse(savedMessages);
-                
-                // عرض جميع الرسائل
-                messages.forEach(message => {
-                    const type = message.sender === myCode ? 'sent' : 'received';
-                    displayMessage(message, type);
-                });
-            } else {
-                messages = [];
-            }
-        }
-        
-        // محاكاة استقبال رسالة (لأغراض العرض فقط)
-        function simulateReceivedMessage() {
-            setTimeout(() => {
-                const replyMessage = {
-                    sender: connectedUser,
-                    receiver: myCode,
-                    text: 'هذه رسالة رد تلقائية من المستخدم الآخر',
-                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                };
-                
-                messages.push(replyMessage);
-                saveMessages();
-                displayMessage(replyMessage, 'received');
-            }, 1000);
-        }
-        
-        // عرض شاشة الاتصال
-        function showConnectScreen() {
-            document.getElementById('chatContainer').style.display = 'none';
-            document.getElementById('connectContainer').style.display = 'block';
-            document.getElementById('otherUserCode').value = '';
-            connectedUser = '';
-        }
-        
-        // العودة للدردشة
-        function backToChat() {
-            if (connectedUser) {
-                document.getElementById('connectContainer').style.display = 'none';
-                document.getElementById('chatContainer').style.display = 'block';
-            }
-        }
-        
-        // تحميل بيانات المستخدم عند بدء التحميل
-        window.onload = function() {
-            const savedUsername = localStorage.getItem('chatAppUsername');
-            const savedCode = localStorage.getItem('chatAppCode');
+            const notificationElement = document.createElement('div');
+            notificationElement.classList.add('notification');
+            notificationElement.textContent = text;
+            notificationElement.style.textAlign = 'center';
+            notificationElement.style.margin = '10px 0';
+            notificationElement.style.color = '#666';
+            notificationElement.style.fontSize = '0.9em';
             
-            if (savedUsername && savedCode) {
-                currentUser = savedUsername;
-                myCode = savedCode;
-                
-                document.getElementById('loginContainer').style.display = 'none';
-                document.getElementById('connectContainer').style.display = 'block';
-                document.getElementById('myCode').textContent = myCode;
-            }
-        };
+            chatMessages.appendChild(notificationElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
         
         // إرسال الرسالة عند الضغط على Enter
         document.getElementById('messageInput').addEventListener('keypress', function(e) {
