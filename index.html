@@ -1,987 +1,474 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>تطبيق الدردشة</title>
     <style>
-
         :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3f37c9;
-            --accent-color: #4895ef;
-            --dark-color: #1a1a2e;
-            --light-color: #f8f9fa;
-            --text-color: #333333;
-            --text-light: #6c757d;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --primary-color: #25D366;
+            --secondary-color: #128C7E;
+            --light-bg: #e5ddd5;
+            --message-sent: #DCF8C6;
+            --message-received: #FFFFFF;
+            --text-dark: #075E54;
+            --text-light: #ffffff;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Tajawal', sans-serif;
         }
         
         body {
-            background-color: white;
-            color: var(--text-color);
-            line-height: 1.7;
-            padding: 20px;
-            overflow-x: hidden;
+            background-color: var(--light-bg);
+            color: #333;
         }
         
-        /* Header Styles */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px 10%;
-            background-color: white;
-            box-shadow: var(--shadow);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: var(--transition);
-        }
-        
-        header.scrolled {
-            padding: 15px 10%;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-color);
-            letter-spacing: 1px;
-        }
-        
-        .logo span {
-            color: var(--dark-color);
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 30px;
-            position: relative;
-        }
-        
-        nav ul li a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 8px 0;
-            position: relative;
-            font-size: 16px;
-            letter-spacing: 0.5px;
-        }
-        
-        nav ul li a::before {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            bottom: 0;
-            left: 0;
-            transition: var(--transition);
-        }
-        
-        nav ul li a:hover::before {
-            width: 100%;
-        }
-        
-        nav ul li a:hover,
-        nav ul li a.active {
-            color: var(--primary-color);
-        }
-        
-        .hamburger {
-            display: none;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 100vh;
-            padding: 0 10%;
-            margin-top: -15px;
-        }
-        
-        .hero-content {
-            flex: 1;
-            padding-right: 50px;
-            animation: fadeInLeft 1s ease;
-        }
-        
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            color: var(--dark-color);
-            line-height: 1.2;
-        }
-        
-        .hero-content h1 span {
-            color: var(--primary-color);
-        }
-        
-        .hero-content p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            color: var(--text-light);
+        /* شاشة تسجيل الدخول */
+        .login-container {
             max-width: 500px;
-        }
-        
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-        }
-        
-        .cta-button i {
-            margin-left: 8px;
-            font-size: 14px;
-        }
-        
-        .cta-button:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
-        }
-        
-        .hero-image {
-            flex: 1;
-            position: relative;
-            height: 500px;
-            animation: fadeInRight 1s ease;
-        }
-        
-        .hero-image-wrapper {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
-        }
-        
-        .hero-image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-        
-        .hero-image:hover img {
-            transform: scale(1.05);
-        }
-        
-        .hero-image::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3px solid var(--primary-color);
-            border-radius: 20px;
-            top: 20px;
-            left: 20px;
-            z-index: -1;
-            transition: var(--transition);
-        }
-        
-        .hero-image:hover::before {
-            top: 15px;
-            left: 15px;
-        }
-        
-        /* CV Section */
-        .cv-section {
-            display: flex;
-            margin: 100px 0;
-            background-color: var(--light-color);
-            padding: 60px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            align-items: center;
-        }
-        
-        .cv-image {
-            flex: 1;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .cv-image img {
-            width: 100%;
-            max-width: 350px;
-            border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            transition: var(--transition);
-        }
-        
-        .cv-image:hover img {
-            transform: translateY(-10px);
-        }
-        
-        .cv-content {
-            flex: 1;
-            padding: 20px 40px;
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: var(--dark-color);
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 50%;
-            height: 4px;
-            background: var(--primary-color);
-            bottom: -10px;
-            left: 0;
-            border-radius: 2px;
-        }
-        
-        .cv-content p {
-            margin-bottom: 20px;
-            color: var(--text-light);
-            font-size: 1.05rem;
-        }
-        
-        .cv-skills {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 30px 0;
-        }
-        
-        .skill-item {
-            background-color: white;
-            padding: 8px 20px;
-            border-radius: 50px;
-            margin: 0 10px 10px 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            font-size: 0.9rem;
-            color: var(--text-color);
-        }
-        
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            margin-top: 20px;
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-        }
-        
-        .download-btn i {
-            margin-left: 8px;
-        }
-        
-        .download-btn:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
-        }
-        
-        /* Projects Section */
-        .projects-section {
-            margin: 100px 0;
-        }
-        
-        .projects-section .section-title {
-            text-align: center;
-        }
-        
-        .projects-section .section-title::after {
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-        }
-        
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .project-card {
-            background-color: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-        }
-        
-        .project-card::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-            opacity: 0;
-            transition: var(--transition);
-            z-index: 1;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .project-card:hover::before {
-            opacity: 1;
-        }
-        
-        .project-image {
-            height: 250px;
-            overflow: hidden;
-        }
-        
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-        
-        .project-card:hover .project-image img {
-            transform: scale(1.1);
-        }
-        
-        .project-info {
-            padding: 25px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .project-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: var(--dark-color);
-        }
-        
-        .project-info p {
-            color: var(--text-light);
-            margin-bottom: 15px;
-        }
-        
-        .project-link {
-            display: inline-flex;
-            align-items: center;
-            color: var(--primary-color);
-            font-weight: 500;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .project-link i {
-            margin-left: 5px;
-            font-size: 12px;
-            transition: var(--transition);
-        }
-        
-        .project-link:hover {
-            color: var(--secondary-color);
-        }
-        
-        .project-link:hover i {
-            transform: translateX(5px);
-        }
-        
-        /* Contact Section */
-        .contact-section {
-            display: flex;
-            background-color: var(--light-color);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            margin: 100px 0;
-        }
-        
-        .contact-info {
-            flex: 1;
-            padding: 60px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .contact-info::before {
-            content: '';
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            top: -50px;
-            right: -50px;
-        }
-        
-        .contact-info::after {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            bottom: -100px;
-            left: -100px;
-        }
-        
-        .contact-info h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .contact-details {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-        
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 15px;
-            font-size: 18px;
-        }
-        
-        .contact-text h4 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-        
-        .contact-text p {
-            opacity: 0.9;
-            font-size: 0.95rem;
-        }
-        
-        .contact-form {
-            flex: 1;
-            padding: 60px;
-            background-color: white;
-        }
-        
-        .contact-form h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: var(--dark-color);
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text-color);
-        }
-        
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 15px 20px;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: var(--transition);
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-            outline: none;
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-        
-        .submit-btn {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            border: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            font-size: 16px;
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .submit-btn i {
-            margin-left: 8px;
-        }
-        
-        .submit-btn:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
+            margin: 50px auto;
             padding: 30px;
-            background-color: var(--dark-color);
-            color: white;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
         
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
+        .login-container h1 {
+            color: var(--secondary-color);
             margin-bottom: 20px;
         }
         
-        .social-links a {
+        .login-container input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .login-container button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .login-container button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* شاشة الدردشة */
+        .chat-container {
+            display: none;
+            max-width: 1000px;
+            margin: 0 auto;
+            height: 100vh;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .chat-header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-header .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-header .user-info .avatar {
             width: 40px;
             height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--primary-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 10px;
+            margin-left: 10px;
             color: white;
-            transition: var(--transition);
+            font-weight: bold;
         }
         
-        .social-links a:hover {
+        .chat-messages {
+            height: calc(100vh - 120px);
+            padding: 20px;
+            overflow-y: auto;
+            background-image: url('https://web.whatsapp.com/img/bg-chat-tile-light_a4be512e7195b6b733d9110b408f075d.png');
+            background-repeat: repeat;
+        }
+        
+        .message {
+            max-width: 70%;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border-radius: 7.5px;
+            position: relative;
+            word-wrap: break-word;
+        }
+        
+        .message.sent {
+            background-color: var(--message-sent);
+            margin-left: auto;
+            border-top-right-radius: 0;
+        }
+        
+        .message.received {
+            background-color: var(--message-received);
+            margin-right: auto;
+            border-top-left-radius: 0;
+        }
+        
+        .message .time {
+            font-size: 11px;
+            color: #666;
+            text-align: left;
+            margin-top: 5px;
+        }
+        
+        .chat-input {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+        
+        .chat-input button {
             background-color: var(--primary-color);
-            transform: translateY(-5px);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
         }
         
-        .copyright {
-            font-size: 0.9rem;
-            opacity: 0.8;
+        .chat-input button:hover {
+            background-color: var(--secondary-color);
         }
         
-        /* Animations */
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        /* شاشة إدخال كود المستخدم */
+        .connect-container {
+            display: none;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
         
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .connect-container h2 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
         }
         
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .connect-container input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
         }
         
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .hero {
-                flex-direction: column-reverse;
-                padding-top: 100px;
-                text-align: center;
-            }
-            
-            .hero-content {
-                padding-right: 0;
-                margin-top: 50px;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.8rem;
-            }
-            
-            .hero-image {
-                width: 100%;
-                max-width: 500px;
-            }
-            
-            .cv-section {
-                flex-direction: column;
-            }
-            
-            .cv-content {
-                padding: 20px 0;
-            }
-            
-            .contact-section {
-                flex-direction: column;
-            }
+        .connect-container button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .connect-container button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .back-button {
+            background-color: #f0f0f0;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
         }
         
         @media (max-width: 768px) {
-            header {
-                padding: 20px 5%;
+            .login-container, .connect-container {
+                margin: 20px;
+                padding: 20px;
             }
             
-            nav ul {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                width: 80%;
-                height: calc(100vh - 80px);
-                background-color: white;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: var(--transition);
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            .chat-container {
+                max-width: 100%;
             }
             
-            nav ul.show {
-                right: 0;
-            }
-            
-            nav ul li {
-                margin: 15px 0;
-            }
-            
-            .hamburger {
-                display: block;
-                font-size: 24px;
-                color: var(--dark-color);
-            }
-            
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
+            .message {
+                max-width: 85%;
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header id="header">
-        <div class="logo">M.<span>Dev</span></div>
-        <nav>
-            <ul id="nav-menu">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#cv">CV</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="tel:+21234567">Call</a></li>
-            </ul> 
-            <div class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
-    </header>
+    <!-- شاشة تسجيل الدخول -->
+    <div class="login-container" id="loginContainer">
+        <h1>تطبيق الدردشة</h1>
+        <input type="text" id="usernameInput" placeholder="أدخل اسمك">
+        <button onclick="login()">الدخول</button>
+    </div>
     
-    <main>
-        <section class="hero" id="home">
-            <div class="hero-content">
-                <h1>Hi, I'm <span> Mahmoud</span></h1>
-                <p>Professional Web Developer with extensive experience in creating high-quality websites and web applications. Specializing in modern JavaScript frameworks and responsive design.</p>
-                <a href="#contact" class="cta-button">Contact Me <i class="fas fa-phone"></i></a>
-            </div>
-            <div class="hero-image">
-                <div class="hero-image-wrapper">
-                    <img src="data:image/jpeg;base64,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" alt="Profile Image">
-                </div>
-            </div>
-        </section>
-        
-        <section class="cv-section" id="cv">
-            <div class="cv-image">
-                <img src="data:image/jpeg;base64,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" alt="CV Image">
-            </div>
-            <div class="cv-content">
-                <h2 class="section-title">My Resume</h2>
-                <p>Web developer with 5+ years of experience in designing and developing websites and applications. Passionate about creating efficient, scalable, and user-friendly digital experiences.</p>
-                <p>Specialized in HTML, CSS, JavaScript, React, Node.js and other modern web technologies. Worked with numerous major companies helping them achieve their digital goals.</p>
-                
-                <div class="cv-skills">
-                    <span class="skill-item">HTML5</span>
-                    <span class="skill-item">CSS3</span>
-                    <span class="skill-item">JavaScript</span>
-                    <span class="skill-item">React</span>
-                    <span class="skill-item">Node.js</span>
-                    <span class="skill-item">MongoDB</span>
-                    <span class="skill-item">Git</span>
-                    <span class="skill-item">Responsive Design</span>
-                </div>
-                
-                <a href="#" class="download-btn">Read CV <i class="fas fa-download"></i></a>
-            </div>
-        </section>
-        
-        <section class="projects-section" id="projects">
-            <h2 class="section-title">My Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Project 1">
-                    </div>
-                    <div class="project-info">
-                        <h3>E-commerce Website</h3>
-                        <p>A complete e-commerce solution with payment system, inventory management and admin dashboard.</p>
-                        <a href="tel:+201123961290" class="project-link">Contact Developor<i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=869&q=80" alt="Project 2">
-                    </div>
-                    <div class="project-info">
-                        <h3>Task Management App</h3>
-                        <p>Web application for personal and team task management with cross-device synchronization.</p>
-                        <a href="tel:+201123961290" class="project-link">Contact Developor<i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Project 3">
-                    </div>
-                    <div class="project-info">
-                        <h3>Learning Platform</h3>
-                        <p>Complete educational platform with content management system and course modules.</p>
-                        <a href="tel:+201123961290" class="project-link">Contact Developor<i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="contact-section" id="contact">
-            <div class="contact-info">
-                <h2>Contact Info</h2>
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Name</h4>
-                            <p>John Doe</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Address</h4>
-                            <p>123 Street, City, Country</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Phone</h4>
-                            <p>+201123961290</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Email</h4>
-                            <p>john.doe@example.com</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="contact-form">
-                <h2>Get In Touch</h2>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
-                </form>
-            </div>
-        </section>
-        
-        <section class="about-section" id="about">
-            <!-- About content would go here -->
-        </section>
-    </main>
+    <!-- شاشة إدخال كود المستخدم -->
+    <div class="connect-container" id="connectContainer">
+        <h2>الاتصال بمستخدم آخر</h2>
+        <p>كودك: <span id="myCode"></span></p>
+        <input type="text" id="otherUserCode" placeholder="أدخل كود المستخدم الآخر">
+        <button onclick="connectToUser()">اتصال</button>
+        <button class="back-button" onclick="backToChat()">العودة للدردشة</button>
+    </div>
     
-    <footer>
-        <div class="footer-content">
-           
-            <p class="copyright">&copy; 2025 John Doe. All Rights Reserved.</p>
+    <!-- شاشة الدردشة -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <div class="user-info">
+                <div class="avatar" id="userAvatar"></div>
+                <span id="chatWithUser"></span>
+            </div>
+            <button onclick="showConnectScreen()">اتصال جديد</button>
         </div>
-    </footer>
+        
+        <div class="chat-messages" id="chatMessages"></div>
+        
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="اكتب رسالة...">
+            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
 
     <script>
-        // Mobile Navigation
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
+        // بيانات التطبيق
+        let currentUser = '';
+        let myCode = '';
+        let connectedUser = '';
+        let messages = [];
         
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('show');
-        });
-        
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('#nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('show');
-            });
-        });
-        
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-        
-        // Active link highlighting
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('#nav-menu a');
-        
-        window.addEventListener('scroll', () => {
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (pageYOffset >= sectionTop - 300) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
-        
-        // Form submission to WhatsApp
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const phone = document.getElementById('phone').value;
-                const subject = document.getElementById('subject').value;
-                const message = document.getElementById('message').value;
-                
-                const whatsappMessage = `*New Message From Website*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Phone:* ${phone}%0A*Subject:* ${subject}%0A*Message:* ${message}`;
-                
-                const whatsappUrl = `https://wa.me/201123961290?text=${whatsappMessage}`;
-                
-                window.open(whatsappUrl, '_blank');
-            });
+        // إنشاء كود عشوائي للمستخدم
+        function generateCode() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
         }
         
-        // Hero image animation
-        document.addEventListener('DOMContentLoaded', function() {
-            const heroImage = document.querySelector('.hero-image');
-            if (heroImage) {
-                setTimeout(() => {
-                    heroImage.style.opacity = '1';
-                }, 300);
+        // تسجيل الدخول
+        function login() {
+            const username = document.getElementById('usernameInput').value.trim();
+            
+            if (username === '') {
+                alert('الرجاء إدخال اسم المستخدم');
+                return;
+            }
+            
+            currentUser = username;
+            myCode = generateCode();
+            
+            // عرض شاشة الاتصال
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('connectContainer').style.display = 'block';
+            document.getElementById('myCode').textContent = myCode;
+            
+            // تخزين بيانات المستخدم في localStorage
+            localStorage.setItem('chatAppUsername', username);
+            localStorage.setItem('chatAppCode', myCode);
+        }
+        
+        // الاتصال بمستخدم آخر
+        function connectToUser() {
+            const otherCode = document.getElementById('otherUserCode').value.trim();
+            
+            if (otherCode === '') {
+                alert('الرجاء إدخال كود المستخدم');
+                return;
+            }
+            
+            if (otherCode === myCode) {
+                alert('لا يمكنك الاتصال بنفسك');
+                return;
+            }
+            
+            connectedUser = otherCode;
+            
+            // عرض شاشة الدردشة
+            document.getElementById('connectContainer').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'block';
+            
+            // تحديث معلومات الدردشة
+            document.getElementById('userAvatar').textContent = currentUser.charAt(0).toUpperCase();
+            document.getElementById('chatWithUser').textContent = `محادثة مع ${otherCode}`;
+            
+            // تحميل الرسائل السابقة (إن وجدت)
+            loadMessages();
+        }
+        
+        // إرسال رسالة
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value.trim();
+            
+            if (messageText === '') return;
+            
+            // إنشاء رسالة جديدة
+            const newMessage = {
+                sender: myCode,
+                receiver: connectedUser,
+                text: messageText,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+            
+            // إضافة الرسالة للقائمة
+            messages.push(newMessage);
+            
+            // حفظ الرسائل في localStorage
+            saveMessages();
+            
+            // عرض الرسالة
+            displayMessage(newMessage, 'sent');
+            
+            // مسح حقل الإدخال
+            messageInput.value = '';
+            
+            // هنا في التطبيق الحقيقي، ستقوم بإرسال الرسالة للخادم
+            // simulateReceivedMessage();
+        }
+        
+        // عرض رسالة
+        function displayMessage(message, type) {
+            const chatMessages = document.getElementById('chatMessages');
+            
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', type);
+            
+            messageElement.innerHTML = `
+                <div class="text">${message.text}</div>
+                <div class="time">${message.time}</div>
+            `;
+            
+            chatMessages.appendChild(messageElement);
+            
+            // التمرير لأسفل لعرض الرسالة الجديدة
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // حفظ الرسائل في localStorage
+        function saveMessages() {
+            localStorage.setItem(`chatAppMessages_${myCode}_${connectedUser}`, JSON.stringify(messages));
+        }
+        
+        // تحميل الرسائل من localStorage
+        function loadMessages() {
+            const savedMessages = localStorage.getItem(`chatAppMessages_${myCode}_${connectedUser}`);
+            
+            if (savedMessages) {
+                messages = JSON.parse(savedMessages);
+                
+                // عرض جميع الرسائل
+                messages.forEach(message => {
+                    const type = message.sender === myCode ? 'sent' : 'received';
+                    displayMessage(message, type);
+                });
+            } else {
+                messages = [];
+            }
+        }
+        
+        // محاكاة استقبال رسالة (لأغراض العرض فقط)
+        function simulateReceivedMessage() {
+            setTimeout(() => {
+                const replyMessage = {
+                    sender: connectedUser,
+                    receiver: myCode,
+                    text: 'هذه رسالة رد تلقائية من المستخدم الآخر',
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                };
+                
+                messages.push(replyMessage);
+                saveMessages();
+                displayMessage(replyMessage, 'received');
+            }, 1000);
+        }
+        
+        // عرض شاشة الاتصال
+        function showConnectScreen() {
+            document.getElementById('chatContainer').style.display = 'none';
+            document.getElementById('connectContainer').style.display = 'block';
+            document.getElementById('otherUserCode').value = '';
+            connectedUser = '';
+        }
+        
+        // العودة للدردشة
+        function backToChat() {
+            if (connectedUser) {
+                document.getElementById('connectContainer').style.display = 'none';
+                document.getElementById('chatContainer').style.display = 'block';
+            }
+        }
+        
+        // تحميل بيانات المستخدم عند بدء التحميل
+        window.onload = function() {
+            const savedUsername = localStorage.getItem('chatAppUsername');
+            const savedCode = localStorage.getItem('chatAppCode');
+            
+            if (savedUsername && savedCode) {
+                currentUser = savedUsername;
+                myCode = savedCode;
+                
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('connectContainer').style.display = 'block';
+                document.getElementById('myCode').textContent = myCode;
+            }
+        };
+        
+        // إرسال الرسالة عند الضغط على Enter
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
             }
         });
     </script>
